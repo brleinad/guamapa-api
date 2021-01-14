@@ -1,0 +1,12 @@
+site_name: guamapa
+site_description: GuamaPa API
+repo_url: https://github.com/brleinad/guamapa-api
+site_dir: site
+copyright: Copyright &copy; 2020, <a href="https://github.com/brleinad">brleinad</a>.
+dev_addr: 0.0.0.0:8001
+
+nav:
+  - Home: 'index.md'
+  - API:
+    - Authentication: 'api/authentication.md'
+    - Users: 'api/users.md'
