@@ -6,9 +6,18 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
 
+from .manager import UserManager
+
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    username = None
+    email = models.EmailField('email address', unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
 
     def __str__(self):
         return self.username

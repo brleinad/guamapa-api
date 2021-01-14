@@ -16,7 +16,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     # path('api-token-auth/', views.obtain_auth_token),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/v1/auth/', include('dj_rest_auth.urls')),
+    path('api-auth/', include('dj_rest_auth.urls')),
     # path('api/v1/auth/registration/', include('dj_rest_auth.registration.urls')),
 
     # the 'api-root' from django rest-frameworks default router
