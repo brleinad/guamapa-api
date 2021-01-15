@@ -25,6 +25,7 @@ class Common(Configuration):
 
         # Your apps
         'guamapa.users',
+        'guamapa.towns',
 
     )
 
