@@ -1,12 +1,22 @@
 version: '2'
 
 services:
-  postgres:
-    image: postgres:11.6
-  web:
+  postgis:
+    image: postgis/postgis:12-master
     restart: always
+    environment: 
+        - POSTGRES_USER=daniel
+        - POSTGRES_PASSWORD=supersecretpassword
+        - ALLOW_IP_RANGE=0.0.0.0/0
+        - POSTGRES_DBNAME=postgres
+    ports:
+        - "5432:5432"
+  web:
+    # restart: always
     environment:
       - DJANGO_SECRET_KEY=local
+      - POSTGRES_USER=daniel
+      - POSTGRES_PASSWORD=supersecretpassword
     image: web
     build: ./
     command: >
@@ -19,7 +29,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      - postgis
 #   documentation:
     # restart: always
     # build: ./

@@ -4,8 +4,8 @@ from .models import Town
 from .serializers import TownSerializer
 
 
-class TownViewSet(mixins.RetrieveModelMixin,
-                  mixins.UpdateModelMixin,
+class TownViewSet(mixins.ListModelMixin,
+                  mixins.RetrieveModelMixin,
                   viewsets.GenericViewSet):
     """
     Updates and retrieves towns
@@ -15,8 +15,10 @@ class TownViewSet(mixins.RetrieveModelMixin,
     permission_classes = (AllowAny,)
 
 
-class TownCreateViewSet(mixins.CreateModelMixin,
-                        viewsets.GenericViewSet):
+class TownEditViewSet(mixins.CreateModelMixin,
+                      mixins.UpdateModelMixin,
+                      mixins.DestroyModelMixin,
+                      viewsets.GenericViewSet):
     """
     Creates towns
     """

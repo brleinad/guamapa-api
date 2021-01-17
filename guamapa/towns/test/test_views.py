@@ -29,7 +29,8 @@ class TestTownListTestCase(APITestCase):
 
 
     def test_post_request_with_no_data_fails(self):
-        self.client.login(email=self.staff_email, password=self.password)
+        # self.client.login(email=self.staff_email, password=self.password)
+        self.client.login(email=self.admin_email, password=self.password)
         response = self.client.post(self.url, {})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 

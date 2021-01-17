@@ -3,6 +3,9 @@ ENV PYTHONUNBUFFERED 1
 
 # Allows docker to cache installed dependencies between builds
 COPY ./requirements.txt requirements.txt
+RUN apt-get update && apt-get upgrade -y
+# install postgis django dependencies
+RUN apt-get install -y binutils libproj-dev gdal-bin
 RUN pip install -r requirements.txt
 
 # Adds our application code to the image
