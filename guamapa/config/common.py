@@ -203,5 +203,9 @@ class Common(Configuration):
         )
     }
 
+    REST_AUTH_SERIALIZERS = {
+        'USER_DETAILS_SERIALiZER': 'users.UserSerializer',
+    }
+
     REST_USE_JWT = True
     JWT_AUTH_COOKIE = 'Token'

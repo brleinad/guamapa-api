@@ -8,7 +8,7 @@ class TownFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ('name',)
 
     id = factory.Faker('uuid4')
-    name = factory.Faker('name', length='10')
+    name = factory.Faker('name')
     # position = factory.Faker('position')
     # elevation = factory.Faker('elevation')
     # population = factory.Fake('population')

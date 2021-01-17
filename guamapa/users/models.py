@@ -10,7 +10,7 @@ from .manager import UserManager
 
 
 class User(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     username = None
     email = models.EmailField('email address', unique=True)
 
