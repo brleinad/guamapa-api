@@ -22,6 +22,7 @@ class Common(Configuration):
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
         'dj_rest_auth',
+        'rest_framework_gis',
 
         # Your apps
         'guamapa.users',
@@ -201,7 +202,8 @@ class Common(Configuration):
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.TokenAuthentication',
             'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-        )
+        ),
+         'TEST_REQUEST_DEFAULT_FORMAT': 'json'
     }
 
     REST_AUTH_SERIALIZERS = {

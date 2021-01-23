@@ -4,6 +4,7 @@ services:
   postgis:
     image: postgis/postgis:12-master
     restart: always
+    # TODO: change username and password for prod
     environment: 
         - POSTGRES_USER=daniel
         - POSTGRES_PASSWORD=supersecretpassword
@@ -12,7 +13,7 @@ services:
     ports:
         - "5432:5432"
   web:
-    # restart: always
+    restart: always
     environment:
       - DJANGO_SECRET_KEY=local
       - POSTGRES_USER=daniel
@@ -21,7 +22,6 @@ services:
     build: ./
     command: >
       bash -c "python wait_for_postgres.py &&
-               ./manage.py makemigrations && 
                ./manage.py migrate &&
                ./manage.py runserver 0.0.0.0:8000"
     volumes:
