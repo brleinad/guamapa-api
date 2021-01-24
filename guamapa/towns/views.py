@@ -2,25 +2,13 @@ from rest_framework import viewsets, mixins
 from rest_framework.permissions import AllowAny, IsAdminUser
 from .models import Town
 from .serializers import TownSerializer
+from ..permissions import IsStaffOrReadOnly
 
 
-class TownViewSet(mixins.RetrieveModelMixin,
-                  mixins.UpdateModelMixin,
-                  viewsets.GenericViewSet):
+class TownViewSet(viewsets.ModelViewSet):
     """
     Updates and retrieves towns
     """
     queryset = Town.objects.all()
     serializer_class = TownSerializer
-    permission_classes = (AllowAny,)
-
-
-class TownCreateViewSet(mixins.CreateModelMixin,
-                        viewsets.GenericViewSet):
-    """
-    Creates towns
-    """
-    queryset = Town.objects.all()
-    serializer_class = TownSerializer
-    permission_classes = (IsAdminUser,)
-    
+    permission_classes = (IsStaffOrReadOnly,)

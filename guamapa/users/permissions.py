@@ -11,4 +11,7 @@ class IsUserOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
+        if request.user.is_superuser and request.user.is_active:
+            return True
+
         return obj == request.user

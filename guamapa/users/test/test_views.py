@@ -19,12 +19,21 @@ class TestUserListTestCase(APITestCase):
     def setUp(self):
         self.url = reverse('user-list')
         self.user_data = factory.build(dict, FACTORY_CLASS=UserFactory)
+        self.password = 'megasecurepass123'
+        self.staff_email = 'staff@test.ca'
+        staff_user = User.objects.create_user(email=self.staff_email, password=self.password, is_staff=True, is_active=True)
+
+    def test_post_request_logged_out_fails(self):
+        response = self.client.post(self.url, {})
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_post_request_with_no_data_fails(self):
+        self.client.login(email=self.staff_email, password=self.password)
         response = self.client.post(self.url, {})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_post_request_with_valid_data_succeeds(self):
+        self.client.login(email=self.staff_email, password=self.password)
         response = self.client.post(self.url, self.user_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -32,6 +41,14 @@ class TestUserListTestCase(APITestCase):
         self.assertEqual(user.email, self.user_data.get('email'))
         self.assertEqual(user.email, str(user))
         self.assertTrue(check_password(self.user_data.get('password'), user.password))
+
+    def test_put_request_from_another_user_fails(self):
+        # TODO
+        pass
+
+    def test_put_request_from_owner_succeeds(self):
+        # TODO
+        pass
 
 
 class TestUserDetailTestCase(APITestCase):

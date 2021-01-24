@@ -22,6 +22,7 @@ class Common(Configuration):
         'rest_framework.authtoken',  # token authentication
         'django_filters',            # for filtering rest endpoints
         'dj_rest_auth',
+        'rest_framework_gis',
 
         # Your apps
         'guamapa.users',
@@ -55,7 +56,8 @@ class Common(Configuration):
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://postgres:@postgres:5432/postgres',
+            #TODO: change credentials in prod
+            default='postgis://daniel:supersecretpassword@postgis:5432/postgres',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }
@@ -200,7 +202,8 @@ class Common(Configuration):
             'rest_framework.authentication.SessionAuthentication',
             'rest_framework.authentication.TokenAuthentication',
             'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-        )
+        ),
+         'TEST_REQUEST_DEFAULT_FORMAT': 'json'
     }
 
     REST_AUTH_SERIALIZERS = {
@@ -209,3 +212,5 @@ class Common(Configuration):
 
     REST_USE_JWT = True
     JWT_AUTH_COOKIE = 'Token'
+
+    # GDAL_LIBRARY_PATH = '/usr/lib/ogdi/libgdal.so'
