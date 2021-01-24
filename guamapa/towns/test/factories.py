@@ -46,6 +46,13 @@ class TownFactory(factory.django.DjangoModelFactory):
     id = factory.Faker('uuid4')
     name = factory.Faker('city')
     location = factory.Faker('geojson_point')
-    # elevation = factory.Faker('number')
-    # population = factory.Fake('number')
+    elevation = factory.Faker('numberify')
+    population = factory.Fake('numberify')
     # description = factory.Fake('text')
+
+
+class MayorFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = 'towns.Mayo'
+        django_get_or_create = ('first_name', 'last_name',)

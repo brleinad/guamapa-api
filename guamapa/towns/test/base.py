@@ -8,7 +8,6 @@ from .factories import TownFactory
 class BaseTownTestCase(TestCase):
 
     def setUpUsers(self):
-        self.town_data = factory.build(dict, FACTORY_CLASS=TownFactory)
         self.password = 'megasecurepass123'
         self.admin_email = 'admin@test.ca'
         self.staff_email = 'staff@test.ca'
