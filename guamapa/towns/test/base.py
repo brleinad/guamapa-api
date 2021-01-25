@@ -15,3 +15,12 @@ class BaseTownTestCase(TestCase):
         admin_user = User.objects.create_superuser(email=self.admin_email, password=self.password)
         staff_user = User.objects.create_user(email=self.staff_email, password=self.password, is_staff=True, is_active=True)
         normal_user = User.objects.create_user(email=self.normal_email, password=self.password, is_staff=False, is_active=True)
+
+    def authenticate_staff(self):
+        self.client.login(email=self.staff_email, password=self.password)
+
+    def authenticate_admin(self):
+        self.client.login(email=self.admin_email, password=self.password)
+
+    def authenticate_normal(self):
+        self.client.login(email=self.normal_email, password=self.password)
