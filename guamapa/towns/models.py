@@ -39,3 +39,18 @@ class Town(models.Model):
     category = models.CharField(blank=True, max_length=64)
 
     assistant_mayor = models.OneToOneField(AssistantMayor, on_delete=models.CASCADE, blank=True, null=True)
+
+class SurveyQuestion(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    question = models.TextField(blank=True)
+    # question = models.CharField(max_length=200)
+
+class SurveyAnswer(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    answer = models.TextField(blank=True)
+    question = models.ForeignKey(SurveyQuestion, on_delete=models.CASCADE)
+    town = models.ForeignKey(Town, on_delete=models.CASCADE)
+    # answered_by 
+    # asked_by
+    # answered_on
+    # last_updated
