@@ -18,7 +18,7 @@ jobs:
       db:
         image: postgis/postgis:12-master
         env:
-          POSTGRES_DB: github_actions
+          POSTGRES_DB: postgres
           POSTGRES_USER: daniel
           POSTGRES_PASSWORD: supersecretpassword
           POSTGRES_DBNAME: postgres
@@ -35,7 +35,8 @@ jobs:
         with:
           python-version: 3.8.6
       - name: Install GIS dependencies
-        run: sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y binutils libproj-dev gdal-bin
+        # run: sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y binutils libproj-dev gdal-bin
+        run: sudo apt-get install -y binutils libproj-dev gdal-bin
       - name: Install dependencies
         run: pip install -r ./requirements.txt
       - name: Run tests
