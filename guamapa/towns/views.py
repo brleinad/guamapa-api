@@ -24,4 +24,8 @@ class AssistantMayorViewSet(viewsets.ModelViewSet):
     serializer_class = AssistantMayorSerializer
     permission_classes = (IsStaffOrReadOnly,)
 
+    def get_queryset(self):
+        return AssistantMayor.objects.filter(town=self.kwargs['town_pk'])
+    
+
 

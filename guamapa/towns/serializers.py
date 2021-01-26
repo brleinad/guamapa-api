@@ -7,7 +7,6 @@ class TownSerializer(serializers.ModelSerializer):
     class Meta:
         model = Town
         fields = '__all__'
-        # fields = ['id', 'name', 'location', 'elevation', 'population', 'category']
 
 
 class AssistantMayorSerializer(serializers.ModelSerializer):

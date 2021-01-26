@@ -5,18 +5,24 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
+from rest_framework_nested import routers
 from .users.views import UserViewSet, UserCreateViewSet
 from .towns.views import TownViewSet, AssistantMayorViewSet
 
 router = DefaultRouter()
+nested_router = routers.SimpleRouter()
 router.register(r'users', UserViewSet)
-router.register(r'users', UserCreateViewSet)
-router.register(r'towns', TownViewSet)
-router.register(r'towns', AssistantMayorViewSet)
+nested_router.register(r'users', UserCreateViewSet)
+nested_router.register(r'towns', TownViewSet)
+# router.register(r'assistant-mayor', AssistantMayorViewSet)
+towns_router = routers.NestedSimpleRouter(nested_router, r'towns', lookup='town')
+towns_router.register(r'assistant-mayors', AssistantMayorViewSet) #, basename='towns-assistant-mayors')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    path('api/v1/', include(nested_router.urls)),
+    path('api/v1/', include(towns_router.urls)),
     # path('api-token-auth/', views.obtain_auth_token),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api-auth/', include('dj_rest_auth.urls')),
