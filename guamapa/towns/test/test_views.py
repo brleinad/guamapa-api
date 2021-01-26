@@ -3,6 +3,7 @@ from rest_framework import status
 from django.test import TestCase
 from django.urls import reverse
 from faker import Faker
+from unittest import skip
 import factory
 import json
 
@@ -110,6 +111,7 @@ class AssistantMayorTestCase(APITestCase, BaseTownTestCase):
         # Town.objects.create(**self.town_data)
         self.url = reverse('assistant-mayor-list')
 
+    @skip('TODO')
     def test_post_request_with_mayor_data(self):
         self.authenticate_staff()
         town = factory.build(dict, FACTORY_CLASS=TownFactory)
