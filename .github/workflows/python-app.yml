@@ -42,3 +42,4 @@ jobs:
         run: python ./manage.py test 
         env:
           SYSTEM_ENV: GITHUB_WORKFLOW
+          DJANGO_SECRET_KEY: testing
