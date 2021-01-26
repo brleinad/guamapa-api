@@ -108,7 +108,7 @@ class AssistantMayorTestCase(APITestCase, BaseTownTestCase):
         self.setUpUsers()
         self.town_data = factory.build(dict, FACTORY_CLASS=TownFactory)
         # Town.objects.create(**self.town_data)
-        self.url = reverse('town-list')
+        self.url = reverse('assistant-mayor-list')
 
     def test_post_request_with_mayor_data(self):
         self.authenticate_staff()
