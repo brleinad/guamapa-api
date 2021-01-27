@@ -1,7 +1,6 @@
 import os
 from os.path import join
 from distutils.util import strtobool
-import dj_database_url
 from configurations import Configuration
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -52,15 +51,6 @@ class Common(Configuration):
     ADMINS = (
         ('Author', 'daniel@danielrb.dev'),
     )
-
-    # Postgres
-    DATABASES = {
-        'default': dj_database_url.config(
-            #TODO: change credentials in prod
-            default='postgis://daniel:supersecretpassword@postgis:5432/postgres',
-            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-        )
-    }
 
     # General
     APPEND_SLASH = False
@@ -212,5 +202,3 @@ class Common(Configuration):
 
     REST_USE_JWT = True
     JWT_AUTH_COOKIE = 'Token'
-
-    # GDAL_LIBRARY_PATH = '/usr/lib/ogdi/libgdal.so'
