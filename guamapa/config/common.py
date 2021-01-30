@@ -197,7 +197,7 @@ class Common(Configuration):
     }
 
     REST_AUTH_SERIALIZERS = {
-        'USER_DETAILS_SERIALiZER': 'users.UserSerializer',
+        'USER_DETAILS_SERIALIZER': 'guamapa.users.serializers.UserSerializer',
     }
 
     REST_USE_JWT = True
