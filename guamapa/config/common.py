@@ -22,6 +22,7 @@ class Common(Configuration):
         'django_filters',            # for filtering rest endpoints
         'dj_rest_auth',
         'rest_framework_gis',
+        'corsheaders',
 
         # Your apps
         'guamapa.users',
@@ -38,6 +39,7 @@ class Common(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
     )
 
     ALLOWED_HOSTS = ["*"]
@@ -202,3 +204,5 @@ class Common(Configuration):
 
     REST_USE_JWT = True
     JWT_AUTH_COOKIE = 'Token'
+
+    CORS_ORIGIN_ALLOW_ALL = False

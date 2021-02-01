@@ -38,3 +38,5 @@ coverage==5.3.1
 django-storages==1.11.1
 boto3==1.16.53
 
+django-cors-headers==3.7.0
+

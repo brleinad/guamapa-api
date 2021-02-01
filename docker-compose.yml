@@ -30,6 +30,14 @@ services:
       - "8000:8000"
     depends_on:
       - postgis
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=daniel@danielrb.dev
+      - PGADMIN_DEFAULT_PASSWORD=popo
+    ports:
+      - "5050:80"
+    
 #   documentation:
     # restart: always
     # build: ./
