@@ -18,7 +18,6 @@ class Local(Common):
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
-            #TODO: change credentials in prod
             default='postgis://daniel:supersecretpassword@postgis:5432/postgres',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )

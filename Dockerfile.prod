@@ -1,0 +1,30 @@
+FROM python:3.8
+
+WORKDIR /usr/src/app
+
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# RUN mkdir -p /usr/src/app/
+# RUN addgroup -S app && adduser -S app -G app
+
+ENV APP_HOME=/usr/src/app/
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+
+# Allows docker to cache installed dependencies between builds
+RUN apt-get update && apt-get upgrade -y
+# install postgis django dependencies
+RUN apt-get install -y binutils libproj-dev gdal-bin
+COPY ./requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY ./entrypoint.prod.sh $APP_HOME
+
+# Adds our application code to the image
+COPY . $APP_HOME
+
+# RUN chown -R app:app $APP_HOME
+# USER app
+
+ENTRYPOINT ["/home/app/guamapa/entrypoint.prod.sh"]

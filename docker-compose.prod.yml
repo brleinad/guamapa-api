@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  guamapa_api:
+    image: "${GUAMAPA_API_IMAGE}"
+    env_file: .env
+    command: python wait_for_postgres.py && gunicorn guamapa.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    expose:
+      - 8000
+    depends_on:
+      - db
+  db:
+    image: postgis/postgis:12-master
+    env_file: .env
+    ports:
+        - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  nginx:
+    image: "${NGINX_IMAGE}"
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    depends_on: 
+      - guamapa_api
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    env_file: .env
+    ports:
+      - "5050:80"
+    depends_on: 
+      - db
+
+volumes:
+  static_volume:
+  media_volume:
+  postgres_data:
