@@ -1,5 +1,7 @@
 import os
 from .common import Common
+import dj_database_url
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class Production(Common):
@@ -13,12 +15,30 @@ class Production(Common):
     DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
     DB_USER = os.getenv('POSTGRES_USER')
 
+    # print('DB env is:')
+    # print(f'DB NAME {DB_NAME}')
+    # print(f'DB PASSWORD {DB_PASSWORD}')
+    # print(f'DB USER {DB_USER}')
+
+    print('going old school')
+
     DATABASES = {
-        'default': dj_database_url.config(
-            default=f'postgis://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}',
-            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-        )
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis', 
+            'NAME': os.environ.get('POSTGRES_DBNAME', 'postgres'),
+            'USER': os.environ.get('POSTGRES_USER', 'user'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
+            'HOST': 'db', #os.environ.get('SQL_HOST', 'localhost'),
+            'PORT': '5432' #os.environ.get('SQL_PORT', '5432'),
+        }
     }
+
+    # DATABASES = {
+    #     'default': dj_database_url.config(
+    #         default=f'postgis://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}',
+    #         conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
+    #     )
+    # }
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
