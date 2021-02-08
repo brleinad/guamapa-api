@@ -11,6 +11,8 @@
 #     echo "PostgreSQL started"
 # fi
 
-python wait_for_postgres.py && python manage.py migrate
+python wait_for_postgres.py && \
+python manage.py collectstatic --no-input && \
+python manage.py migrate
 
 exec "$@"

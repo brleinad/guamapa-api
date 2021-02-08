@@ -5,6 +5,12 @@ on: [push]
 env:
   GUAMAPA_API_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/api:latest
   NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx:latest
+  VIRTUAL_HOST: guamapa-api.danielrb.dev
+  VIRTUAL_PORT: 8000
+  LETSENCRYPT_HOST: guamapa-api.danielrb.dev
+  DEFAULT_EMAIL: daniel@danielrb.dev
+  ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory
+  NGINX_PROXY_CONTAINER: nginx-proxy
 
 jobs:
 
@@ -25,8 +31,12 @@ jobs:
           echo PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL}} >> .env
           echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
           echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
-          echo $GITHUB_ACTOR
-          echo $GITHUB_REPOSITORY
+          echo VIRTUAL_HOST=${{ env.VIRTUAL_HOST }} >> .env
+          echo VIRTUAL_PORT=${{ env.VIRTUAL_PORT }} >> .env
+          echo LETSENCRYPT_HOST=${{ env.LETSENCRYPT_HOST }} >> .env
+          echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
+          echo ACME_CA_URI=${{ env.ACME_CA_URI }} >> .env
+          echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
       - name: Set environment variables
         run: |

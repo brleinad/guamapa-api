@@ -9,6 +9,7 @@ class Production(Common):
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     ALLOWED_HOSTS = ['*.danielrb.dev', '104.248.67.201']
     
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     INSTALLED_APPS += ('gunicorn', )
 
     DB_NAME = os.getenv('POSTGRES_DBNAME')

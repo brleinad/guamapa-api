@@ -19,15 +19,6 @@ services:
         - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-  nginx:
-    image: "${NGINX_IMAGE}"
-    ports:
-      - "80:80"
-    volumes:
-      - static_volume:/usr/src/app/static
-      - media_volume:/usr/src/app/media
-    depends_on: 
-      - guamapa_api
   pgadmin:
     image: dpage/pgadmin4:latest
     env_file: .env
@@ -35,8 +26,38 @@ services:
       - "5050:80"
     depends_on: 
       - db
+  nginx-proxy:
+    image: "${NGINX_IMAGE}"
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - guamapa_api
+  nginx-proxy-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - html:/usr/share/nginx/html
+      - vhost:/etc/nginx/vhost.d
+    depends_on:
+      - nginx-proxy
 
 volumes:
+  postgres_data:
   static_volume:
   media_volume:
-  postgres_data:
+  certs:
+  html:
+  vhost:
