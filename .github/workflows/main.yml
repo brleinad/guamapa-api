@@ -3,7 +3,7 @@ name: Continuous Integration and Delivery
 on: [push]
 
 env:
-  WEB_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/api:latest
+  GUAMAPA_API_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/api:latest
   NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx:latest
 
 jobs:
@@ -27,10 +27,10 @@ jobs:
           echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
           echo $GITHUB_ACTOR
           echo $GITHUB_REPOSITORY
-          echo WEB_IMAGE=${{ env.WEB_IMAGE }}
+          echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
       - name: Set environment variables
         run: |
-          echo WEB_IMAGE=${{ env.WEB_IMAGE }} >> $GITHUB_ENV
+          echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }} >> $GITHUB_ENV
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> $GITHUB_ENV
       - name: Log in to GitHub Packages
         run: echo ${GITHUB_TOKEN} | docker login -u ${GITHUB_ACTOR} --password-stdin docker.pkg.github.com
@@ -38,14 +38,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Pull images
         run: |
-          docker pull ${{ env.WEB_IMAGE }} || true
+          docker pull ${{ env.GUAMAPA_API_IMAGE }} || true
           docker pull ${{ env.NGINX_IMAGE }} || true
       - name: Build images
         run: |
           docker-compose -f docker-compose.prod.yml build
       - name: Push images
         run: |
-          docker push ${{ env.WEB_IMAGE }}
+          docker push ${{ env.GUAMAPA_API_IMAGE }}
           docker push ${{ env.NGINX_IMAGE }}
   deploy:
     name: Deploy to DigitalOcean
@@ -57,7 +57,7 @@ jobs:
         uses: actions/checkout@v1
       - name: Add environment variables to .env
         run: |
-          echo WEB_IMAGE=${{ env.WEB_IMAGE }} >> .env
+          echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
           echo DEBUG=0 >> .env
           echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
@@ -84,7 +84,7 @@ jobs:
             cd /app
             source .env
             docker login docker.pkg.github.com -u brleinad -p ${{ secrets.GITHUB_TOKEN }}
-            docker pull $WEB_IMAGE
+            docker pull $GUAMAPA_API_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
           ENDSSH
