@@ -77,6 +77,13 @@ jobs:
           echo ALLOW_IP_RANGE=${{ secrets.ALLOW_IP_RANGE}} >> .env
           echo PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL}} >> .env
           echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
+          echo VIRTUAL_HOST=${{ env.VIRTUAL_HOST }} >> .env
+          echo VIRTUAL_PORT=${{ env.VIRTUAL_PORT }} >> .env
+          echo LETSENCRYPT_HOST=${{ env.LETSENCRYPT_HOST }} >> .env
+          echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
+          echo ACME_CA_URI=${{ env.ACME_CA_URI }} >> .env
+          echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
+          echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
       - name: Add the private SSH key to the ssh-agent
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
