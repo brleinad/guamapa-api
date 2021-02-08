@@ -4,7 +4,7 @@ services:
   guamapa_api:
     image: "${GUAMAPA_API_IMAGE}"
     env_file: .env
-    command: python wait_for_postgres.py && gunicorn guamapa.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn guamapa.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/usr/src/app/static
       - media_volume:/usr/src/app/media

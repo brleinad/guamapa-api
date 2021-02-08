@@ -5,10 +5,9 @@ from .common import Common
 class Production(Common):
     INSTALLED_APPS = Common.INSTALLED_APPS
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-    # Site
-    # https://docs.djangoproject.com/en/2.0/ref/settings/#allowed-hosts
-    ALLOWED_HOSTS = ["*.danielrb.dev"]
-    INSTALLED_APPS += ("gunicorn", )
+    ALLOWED_HOSTS = ['*.danielrb.dev', '104.248.67.201']
+    
+    INSTALLED_APPS += ('gunicorn', )
 
     DB_NAME = os.getenv('POSTGRES_DBNAME')
     DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
