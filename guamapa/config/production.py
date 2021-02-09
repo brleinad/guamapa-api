@@ -7,7 +7,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class Production(Common):
     INSTALLED_APPS = Common.INSTALLED_APPS
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-    ALLOWED_HOSTS = ['*.danielrb.dev', '104.248.67.201']
+
+    DJANGO_ALLOWED_HOST = os.getenv('DJANGO_ALLOWED_HOST', '')
+    ALLOWED_HOSTS = [DJANGO_ALLOWED_HOST, '104.248.67.201']
     
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     INSTALLED_APPS += ('gunicorn', )
@@ -16,12 +18,6 @@ class Production(Common):
     DB_PASSWORD = os.getenv('POSTGRES_PASSWORD')
     DB_USER = os.getenv('POSTGRES_USER')
 
-    # print('DB env is:')
-    # print(f'DB NAME {DB_NAME}')
-    # print(f'DB PASSWORD {DB_PASSWORD}')
-    # print(f'DB USER {DB_USER}')
-
-    print('going old school')
 
     DATABASES = {
         'default': {

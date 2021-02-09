@@ -6,7 +6,12 @@ import sys
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "guamapa.config")
-    os.environ.setdefault("DJANGO_CONFIGURATION", "Production")
+    PRODUCTION = os.environ.setdefault("PRODUCTION", False)
+
+    if PRODUCTION:
+        os.environ.setdefault("DJANGO_CONFIGURATION", "Production")
+    else:
+        os.environ.setdefault("DJANGO_CONFIGURATION", "Local")
 
     try:
         from configurations.management import execute_from_command_line
