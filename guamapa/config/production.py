@@ -8,10 +8,11 @@ class Production(Common):
     INSTALLED_APPS = Common.INSTALLED_APPS
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-    DJANGO_ALLOWED_HOST = os.getenv('DJANGO_ALLOWED_HOST', '')
-    ALLOWED_HOSTS = [DJANGO_ALLOWED_HOST, '104.248.67.201']
+    ALLOWED_HOSTS = [i.split('.') for i in os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')] 
+
+    # ALLOWED_HOSTS = [DJANGO_ALLOWED_HOST, '104.248.67.201']
     
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     INSTALLED_APPS += ('gunicorn', )
 
     DB_NAME = os.getenv('POSTGRES_DBNAME')
