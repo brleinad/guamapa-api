@@ -2,13 +2,15 @@ import os
 from .common import Common
 import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import json
+
 
 
 class Production(Common):
     INSTALLED_APPS = Common.INSTALLED_APPS
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-    ALLOWED_HOSTS = [i.split('.') for i in os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')] 
+    ALLOWED_HOSTS = json.loads(os.environ['DJANGO_ALLOWED_HOSTS'], '[]')
 
     # ALLOWED_HOSTS = [DJANGO_ALLOWED_HOST, '104.248.67.201']
     

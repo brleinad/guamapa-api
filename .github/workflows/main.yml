@@ -38,7 +38,7 @@ jobs:
           echo ACME_CA_URI=${{ env.ACME_CA_URI }} >> .env
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo PRODUCTION=True >> .env
-          echo DJANGO_ALLOWED_HOSTS='guamapa-api.lacasaamber.com guamapa.lacasaamber.com' >> .env
+          echo DJANGO_ALLOWED_HOSTS='["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]' >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
       - name: Set environment variables
         run: |
@@ -87,7 +87,7 @@ jobs:
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
           echo PRODUCTION=True >> .env
-          echo DJANGO_ALLOWED_HOSTS='guamapa-api.lacasaamber.com guamapa.lacasaamber.com' >> .env
+          echo DJANGO_ALLOWED_HOSTS='["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]' >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
