@@ -54,7 +54,8 @@ jobs:
           docker pull ${{ env.NGINX_IMAGE }} || true
       - name: Build images
         run: |
-          docker-compose -f docker-compose.prod.yml build
+          docker build -f ./Dockerfile.prod -t  ${{ env.GUAMAPA_API_IMAGE }} .  || true
+          docker build -f ./nginx/Dockerfile -t ${{ env.NGINX_IMAGE }} ./nginx  || true
       - name: Push images
         run: |
           docker push ${{ env.GUAMAPA_API_IMAGE }}

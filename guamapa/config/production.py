@@ -10,7 +10,12 @@ class Production(Common):
     INSTALLED_APPS = Common.INSTALLED_APPS
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-    ALLOWED_HOSTS = json.loads(os.environ['DJANGO_ALLOWED_HOSTS'], '[]')
+    ALLOWED_HOSTS = json.loads(os.environ['DJANGO_ALLOWED_HOSTS'])
+
+    cors_list = ['https://' + host for host in ALLOWED_HOSTS]
+    CORS_ORIGIN_WHITELIST = tuple(cors_list)
+    print('CORS FOR ')
+    print(CORS_ORIGIN_WHITELIST)
 
     # ALLOWED_HOSTS = [DJANGO_ALLOWED_HOST, '104.248.67.201']
     
