@@ -7,6 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 class Local(Common):
     DEBUG = True
 
+    print('using local')
     # Testing
     INSTALLED_APPS = Common.INSTALLED_APPS
 
@@ -18,7 +19,7 @@ class Local(Common):
     # Postgres
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgis://daniel:supersecretpassword@postgis:5432/postgres',
+            default='postgis://daniel:supersecretpassword@db:5432/postgres',
             conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
         )
     }

@@ -1,10 +1,9 @@
 version: '2'
 
 services:
-  postgis:
+  db:
     image: postgis/postgis:12-master
     restart: always
-    # TODO: change username and password for prod
     environment: 
         - POSTGRES_USER=daniel
         - POSTGRES_PASSWORD=supersecretpassword
@@ -12,13 +11,13 @@ services:
         - POSTGRES_DBNAME=postgres
     ports:
         - "5432:5432"
-  web:
+  guamapa_api:
     restart: always
     environment:
       - DJANGO_SECRET_KEY=local
       - POSTGRES_USER=daniel
+      - POSTGRES_DBNAME=postgres
       - POSTGRES_PASSWORD=supersecretpassword
-    image: web
     build: ./
     command: >
       bash -c "python wait_for_postgres.py &&
@@ -29,7 +28,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgis
+      - db
   pgadmin:
     image: dpage/pgadmin4:latest
     environment: 

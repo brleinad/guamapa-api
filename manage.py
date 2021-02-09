@@ -6,7 +6,7 @@ import sys
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "guamapa.config")
-    PRODUCTION = os.environ.setdefault("PRODUCTION", False)
+    PRODUCTION = os.getenv('PRODUCTION', False)
 
     if PRODUCTION:
         os.environ.setdefault("DJANGO_CONFIGURATION", "Production")

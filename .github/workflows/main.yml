@@ -9,7 +9,6 @@ env:
   VIRTUAL_PORT: 8000
   LETSENCRYPT_HOST: guamapa-api.lacasaamber.com
   DEFAULT_EMAIL: daniel@danielrb.dev
-  ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory
   NGINX_PROXY_CONTAINER: nginx-proxy
 
 jobs:
@@ -35,7 +34,6 @@ jobs:
           echo VIRTUAL_PORT=${{ env.VIRTUAL_PORT }} >> .env
           echo LETSENCRYPT_HOST=${{ env.LETSENCRYPT_HOST }} >> .env
           echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
-          echo ACME_CA_URI=${{ env.ACME_CA_URI }} >> .env
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo PRODUCTION=True >> .env
           echo DJANGO_ALLOWED_HOSTS='["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]' >> .env
@@ -84,7 +82,6 @@ jobs:
           echo VIRTUAL_PORT=${{ env.VIRTUAL_PORT }} >> .env
           echo LETSENCRYPT_HOST=${{ env.LETSENCRYPT_HOST }} >> .env
           echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
-          echo ACME_CA_URI=${{ env.ACME_CA_URI }} >> .env
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
           echo PRODUCTION=True >> .env
