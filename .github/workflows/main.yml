@@ -5,9 +5,9 @@ on: [push]
 env:
   GUAMAPA_API_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/api:latest
   NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx:latest
-  VIRTUAL_HOST: guamapa-api.danielrb.dev
+  VIRTUAL_HOST: guamapa-api.lacasaamber.com
   VIRTUAL_PORT: 8000
-  LETSENCRYPT_HOST: guamapa-api.danielrb.dev
+  LETSENCRYPT_HOST: guamapa-api.lacasaamber.com
   DEFAULT_EMAIL: daniel@danielrb.dev
   ACME_CA_URI: https://acme-staging-v02.api.letsencrypt.org/directory
   NGINX_PROXY_CONTAINER: nginx-proxy
