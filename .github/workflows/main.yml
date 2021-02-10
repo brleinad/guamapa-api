@@ -38,7 +38,7 @@ jobs:
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo DJANGO_ALLOWED_HOSTS=${{ env.DJANGO_ALLOWED_HOSTS }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
-      - napopome: Set environment variables
+      - name: Set environment variables
         run: |
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }} >> $GITHUB_ENV
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> $GITHUB_ENV
