@@ -85,7 +85,7 @@ jobs:
           echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
-          echo DJANGO_ALLOWED_HOSTS=${{ DJANGO_ALLOWED_HOSTS }} >> .env
+          echo DJANGO_ALLOWED_HOSTS=${{ env.DJANGO_ALLOWED_HOSTS }} >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
