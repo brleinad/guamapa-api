@@ -3,11 +3,12 @@ name: Continuous Integration and Delivery
 on: [push]
 
 env:
+  VIRTUAL_HOST: antigua-api.munimapa.com
+  LETSENCRYPT_HOST: antigua-api.munimapa.com
+  DJANGO_ALLOWED_HOSTS: '["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]'
   GUAMAPA_API_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/api:latest
   NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx:latest
-  VIRTUAL_HOST: guamapa-api.lacasaamber.com
   VIRTUAL_PORT: 8000
-  LETSENCRYPT_HOST: guamapa-api.lacasaamber.com
   DEFAULT_EMAIL: daniel@danielrb.dev
   NGINX_PROXY_CONTAINER: nginx-proxy
 
@@ -22,23 +23,22 @@ jobs:
       - name: Add environment variables to .env
         run: |
           echo DEBUG=0 >> .env
+          echo PRODUCTION=True >> .env
           echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
           echo POSTGRES_DBNAME=${{ secrets.POSTGRES_DBNAME}} >> .env
           echo POSTGRES_USER=${{ secrets.POSTGRES_USER}} >> .env
-          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD}} >> .env
+          echo POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD}} >> .env
           echo ALLOW_IP_RANGE=${{ secrets.ALLOW_IP_RANGE}} >> .env
-          echo PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL}} >> .env
-          echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
-          echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
+          echo PGADMIN_DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
+          echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.DB_PASSWORD}} >> .env
           echo VIRTUAL_HOST=${{ env.VIRTUAL_HOST }} >> .env
           echo VIRTUAL_PORT=${{ env.VIRTUAL_PORT }} >> .env
           echo LETSENCRYPT_HOST=${{ env.LETSENCRYPT_HOST }} >> .env
           echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
-          echo PRODUCTION=True >> .env
-          echo DJANGO_ALLOWED_HOSTS='["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]' >> .env
+          echo DJANGO_ALLOWED_HOSTS=${{ env.DJANGO_ALLOWED_HOSTS }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
-      - name: Set environment variables
+      - napopome: Set environment variables
         run: |
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }} >> $GITHUB_ENV
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> $GITHUB_ENV
@@ -71,21 +71,21 @@ jobs:
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
           echo DEBUG=0 >> .env
+          echo PRODUCTION=True >> .env
           echo DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} >> .env
           echo POSTGRES_DBNAME=${{ secrets.POSTGRES_DBNAME}} >> .env
           echo POSTGRES_USER=${{ secrets.POSTGRES_USER}} >> .env
-          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD}} >> .env
+          echo POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
           echo ALLOW_IP_RANGE=${{ secrets.ALLOW_IP_RANGE}} >> .env
-          echo PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL}} >> .env
-          echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD}} >> .env
+          echo PGADMIN_DEFAULT_EMAIL=${{ secrets.DEFAULT_EMAIL }} >> .env
+          echo PGADMIN_DEFAULT_PASSWORD=${{ secrets.DB_PASSWORD}} >> .env
           echo VIRTUAL_HOST=${{ env.VIRTUAL_HOST }} >> .env
           echo VIRTUAL_PORT=${{ env.VIRTUAL_PORT }} >> .env
           echo LETSENCRYPT_HOST=${{ env.LETSENCRYPT_HOST }} >> .env
           echo DEFAULT_EMAIL=${{ env.DEFAULT_EMAIL }} >> .env
           echo NGINX_PROXY_CONTAINER=${{ env.NGINX_PROXY_CONTAINER }} >> .env
           echo GUAMAPA_API_IMAGE=${{ env.GUAMAPA_API_IMAGE }}
-          echo PRODUCTION=True >> .env
-          echo DJANGO_ALLOWED_HOSTS='["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]' >> .env
+          echo DJANGO_ALLOWED_HOSTS=${{ DJANGO_ALLOWED_HOSTS }} >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
