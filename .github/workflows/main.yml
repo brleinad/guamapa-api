@@ -5,7 +5,7 @@ on: [push]
 env:
   VIRTUAL_HOST: antigua-api.munimapa.com
   LETSENCRYPT_HOST: antigua-api.munimapa.com
-  DJANGO_ALLOWED_HOSTS: ["guamapa-api.lacasaamber.com", "guamapa.lacasaamber.com"]
+  DJANGO_ALLOWED_HOSTS: '[\"antigua-api.munimapa.com\", \"antigua.munimapa.com\"]'
   GUAMAPA_API_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/api:latest
   NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx:latest
   VIRTUAL_PORT: 8000
