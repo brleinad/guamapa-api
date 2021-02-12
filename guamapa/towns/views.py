@@ -16,6 +16,7 @@ class TownViewSet(viewsets.ModelViewSet):
     serializer_class = TownSerializer
     permission_classes = (IsStaffOrReadOnly,)
 
+
 class AssistantMayorViewSet(viewsets.ModelViewSet):
     """
     Updates and retrieves assistant mayors
@@ -23,6 +24,18 @@ class AssistantMayorViewSet(viewsets.ModelViewSet):
     queryset = AssistantMayor.objects.all()
     serializer_class = AssistantMayorSerializer
     permission_classes = (IsStaffAndAuthenticatedReadOnly,)
+
+
+class TownAssistantMayorViewSet(viewsets.ModelViewSet):
+    """
+    Updates and retrieves assistant mayors
+    """
+    queryset = AssistantMayor.objects.all()
+    serializer_class = AssistantMayorSerializer
+    permission_classes = (IsStaffAndAuthenticatedReadOnly,)
+
+    def get_queryset(self):
+        return AssistantMayor.objects.filter(town=self.kwargs['town_pk'])
 
 class SurveyQuestionViewSet(viewsets.ModelViewSet):
     """
@@ -32,7 +45,7 @@ class SurveyQuestionViewSet(viewsets.ModelViewSet):
     serializer_class = SurveyQuestionSerializer
     permission_classes = (IsStaffAndAuthenticatedReadOnly,)
 
-class NestedSurveyAnswerViewSet(viewsets.ModelViewSet):
+class TownSurveyAnswerViewSet(viewsets.ModelViewSet):
     """
     Updates and retrieves survey answers
     """

@@ -7,7 +7,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_nested import routers
 from .users.views import UserViewSet, UserCreateViewSet
-from .towns.views import TownViewSet, AssistantMayorViewSet, SurveyAnswerViewSet, SurveyQuestionViewSet, NestedSurveyAnswerViewSet
+from .towns.views import TownViewSet, AssistantMayorViewSet, TownAssistantMayorViewSet, SurveyAnswerViewSet, SurveyQuestionViewSet, TownSurveyAnswerViewSet
 
 router = DefaultRouter()
 nested_router = routers.SimpleRouter()
@@ -19,7 +19,8 @@ router.register(r'survey-answers', SurveyAnswerViewSet)
 
 nested_router.register(r'towns', TownViewSet)
 towns_router = routers.NestedSimpleRouter(nested_router, r'towns', lookup='town')
-towns_router.register(r'survey-answers', NestedSurveyAnswerViewSet) #, basename='towns-assistant-mayors')
+towns_router.register(r'survey-answers', TownSurveyAnswerViewSet) #, basename='towns-assistant-mayors')
+towns_router.register(r'assistant-mayor', TownAssistantMayorViewSet) #, basename='towns-assistant-mayors')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
