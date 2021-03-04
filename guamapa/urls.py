@@ -1,13 +1,13 @@
 from django.conf import settings
 from django.urls import path, re_path, include, reverse_lazy
 from django.conf.urls.static import static
-from django.contrib import admin
+from django.contrib.gis import admin
 from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_nested import routers
 from .users.views import UserViewSet, UserCreateViewSet
-from .towns.views import TownViewSet, AssistantMayorViewSet, TownAssistantMayorViewSet, SurveyAnswerViewSet, SurveyQuestionViewSet, TownSurveyAnswerViewSet
+from .towns.views import TownViewSet, AssistantMayorViewSet, TownAssistantMayorViewSet, SurveyAnswerViewSet, SurveyQuestionViewSet, TownSurveyAnswerViewSet, BusinessViewSet
 
 router = DefaultRouter()
 nested_router = routers.SimpleRouter()
@@ -16,6 +16,7 @@ router.register(r'towns', TownViewSet)
 router.register(r'assistant-mayors', AssistantMayorViewSet)
 router.register(r'survey-questions', SurveyQuestionViewSet)
 router.register(r'survey-answers', SurveyAnswerViewSet)
+router.register(r'businesses', BusinessViewSet)
 
 nested_router.register(r'towns', TownViewSet)
 towns_router = routers.NestedSimpleRouter(nested_router, r'towns', lookup='town')

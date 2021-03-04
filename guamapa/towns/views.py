@@ -3,8 +3,8 @@ from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Town, AssistantMayor, SurveyQuestion, SurveyAnswer
-from .serializers import TownSerializer, AssistantMayorSerializer, SurveyQuestionSerializer, SurveyAnswerSerializer
+from .models import Town, AssistantMayor, SurveyQuestion, SurveyAnswer, Business
+from .serializers import TownSerializer, AssistantMayorSerializer, SurveyQuestionSerializer, SurveyAnswerSerializer, BusinessSerializer
 from ..permissions import IsStaffOrReadOnly, IsStaffAndAuthenticatedReadOnly
 
 
@@ -64,3 +64,9 @@ class SurveyAnswerViewSet(viewsets.ModelViewSet):
     queryset = SurveyAnswer.objects.all()
     serializer_class = SurveyAnswerSerializer
     permission_classes = (IsStaffAndAuthenticatedReadOnly,)
+
+
+class BusinessViewSet(viewsets.ModelViewSet):
+    queryset = Business.objects.all()
+    serializer_class = BusinessSerializer
+    permission_classes = (IsStaffOrReadOnly,)
