@@ -54,8 +54,14 @@ class SurveyAnswer(models.Model):
     question = models.ForeignKey(SurveyQuestion, on_delete=models.CASCADE)
     town = models.ForeignKey(Town, on_delete=models.CASCADE)
 
+
 class Business(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     name = models.CharField(max_length=200)
     location = models.PointField(null=True, blank=True)
 
+class PointOfInterest(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    name = models.CharField(max_length=200)
+    location = models.PointField(null=True, blank=True)
+    description = models.TextField(blank=True)

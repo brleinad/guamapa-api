@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Town, AssistantMayor, SurveyQuestion, SurveyAnswer, Business
+from .models import Town, AssistantMayor, SurveyQuestion, SurveyAnswer, Business, PointOfInterest
 
 
 class TownSerializer(serializers.ModelSerializer):
@@ -35,4 +35,11 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Business
+        fields = '__all__'
+
+
+class PointOfInterestSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PointOfInterest
         fields = '__all__'
